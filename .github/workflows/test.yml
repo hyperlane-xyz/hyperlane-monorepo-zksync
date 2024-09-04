@@ -214,6 +214,8 @@ jobs:
         with:
           prefix-key: "v1-${{ runner.os }}-rust-cache"
           shared-key: ${{ matrix.e2e-type }}
+          cache-all-crates: "true"
+          cache-provider: "buildjet"
           workspaces: |
             ./rust
 
