@@ -43,7 +43,8 @@ jobs:
       - name: rust cache
         uses: Swatinem/rust-cache@v2
         with:
-          prefix-key: "v3-rust"
+          prefix-key: "v3"
+          shared-key: "rust"
           save-if: ${{ !startsWith(github.ref, 'refs/heads/gh-readonly-queue') }}
           workspaces: |
             ./rust
@@ -73,7 +74,8 @@ jobs:
       - name: rust cache
         uses: Swatinem/rust-cache@v2
         with:
-          prefix-key: "v3-rust"
+          prefix-key: "v3"
+          shared-key: "rust"
           save-if: ${{ !startsWith(github.ref, 'refs/heads/gh-readonly-queue') }}
           workspaces: |
             ./rust
