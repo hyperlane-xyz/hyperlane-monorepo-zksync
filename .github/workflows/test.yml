@@ -216,6 +216,7 @@ jobs:
           shared-key: ${{ matrix.e2e-type }}
           cache-all-crates: "true"
           cache-provider: "buildjet"
+          save-if: ${{ !startsWith(github.ref, 'refs/heads/gh-readonly-queue') }}
           workspaces: |
             ./rust
 
@@ -304,6 +305,7 @@ jobs:
         with:
           prefix-key: "v1-${{ runner.os }}-rust-cache"
           shared-key: "cli-e2e"
+          save-if: ${{ !startsWith(github.ref, 'refs/heads/gh-readonly-queue') }}
           workspaces: |
             ./rust
 
@@ -367,6 +369,7 @@ jobs:
         with:
           prefix-key: "v1-${{ runner.os }}-rust-cache"
           shared-key: "cli-e2e"
+          save-if: ${{ !startsWith(github.ref, 'refs/heads/gh-readonly-queue') }}
           workspaces: |
             ./rust
 
