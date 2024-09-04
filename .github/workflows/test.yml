@@ -43,6 +43,8 @@ jobs:
             **/node_modules
             .yarn
           key: ${{ runner.os }}-yarn-cache-${{ hashFiles('./yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-cache-
 
       - name: yarn-install
         run: |
@@ -78,7 +80,9 @@ jobs:
           path: |
             ./*
             !./rust
-          key: ${{ github.event.pull_request.head.sha || github.sha }}
+          key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+          restore-keys: |
+            ${{ github.ref_name }}-
 
       - name: build
         run: yarn build
@@ -132,7 +136,7 @@ jobs:
           path: |
             ./*
             !./rust
-          key: ${{ github.event.pull_request.head.sha || github.sha }}
+          key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Checkout registry
         uses: ./.github/actions/checkout-registry
@@ -167,7 +171,7 @@ jobs:
           path: |
             ./*
             !./rust
-          key: ${{ github.event.pull_request.head.sha || github.sha }}
+          key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Checkout registry
         uses: ./.github/actions/checkout-registry
@@ -248,7 +252,7 @@ jobs:
           path: |
             ./*
             !./rust
-          key: ${{ github.event.pull_request.head.sha || github.sha }}
+          key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Install system dependencies
         run: |
@@ -401,7 +405,7 @@ jobs:
           path: |
             ./*
             !./rust
-          key: ${{ github.event.pull_request.head.sha || github.sha }}
+          key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Checkout registry
         uses: ./.github/actions/checkout-registry
@@ -442,7 +446,7 @@ jobs:
           path: |
             ./*
             !./rust
-          key: ${{ github.event.pull_request.head.sha || github.sha }}
+          key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Checkout registry
         uses: ./.github/actions/checkout-registry
@@ -474,7 +478,7 @@ jobs:
           path: |
             ./*
             !./rust
-          key: ${{ github.event.pull_request.head.sha || github.sha }}
+          key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: foundry-install
         uses: foundry-rs/foundry-toolchain@v1
