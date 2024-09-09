@@ -73,6 +73,7 @@ jobs:
             **/node_modules
             .yarn
           key: ${{ runner.os }}-yarn-cache-${{ hashFiles('./yarn.lock') }}
+          fail-on-cache-miss: true
 
       - name: build-cache
         uses: actions/cache@v4
@@ -104,6 +105,7 @@ jobs:
             **/node_modules
             .yarn
           key: ${{ runner.os }}-yarn-cache-${{ hashFiles('./yarn.lock') }}
+          fail-on-cache-miss: true
 
       - name: lint
         run: yarn lint
@@ -137,6 +139,7 @@ jobs:
             ./*
             !./rust
           key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+          fail-on-cache-miss: true
 
       - name: Checkout registry
         uses: ./.github/actions/checkout-registry
@@ -164,6 +167,7 @@ jobs:
             **/node_modules
             .yarn
           key: ${{ runner.os }}-yarn-cache-${{ hashFiles('./yarn.lock') }}
+          fail-on-cache-miss: true
 
       - name: build-cache
         uses: actions/cache@v4
@@ -172,6 +176,7 @@ jobs:
             ./*
             !./rust
           key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+          fail-on-cache-miss: true
 
       - name: Checkout registry
         uses: ./.github/actions/checkout-registry
@@ -245,6 +250,7 @@ jobs:
             **/node_modules
             .yarn
           key: ${{ runner.os }}-yarn-cache-${{ hashFiles('./yarn.lock') }}
+          fail-on-cache-miss: true
 
       - name: build-cache
         uses: actions/cache@v4
@@ -253,6 +259,7 @@ jobs:
             ./*
             !./rust
           key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+          fail-on-cache-miss: true
 
       - name: Install system dependencies
         run: |
@@ -398,6 +405,7 @@ jobs:
             **/node_modules
             .yarn
           key: ${{ runner.os }}-yarn-cache-${{ hashFiles('./yarn.lock') }}
+          fail-on-cache-miss: true
 
       - name: build-cache
         uses: actions/cache@v4
@@ -406,6 +414,7 @@ jobs:
             ./*
             !./rust
           key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+          fail-on-cache-miss: true
 
       - name: Checkout registry
         uses: ./.github/actions/checkout-registry
@@ -447,6 +456,7 @@ jobs:
             ./*
             !./rust
           key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+          fail-on-cache-miss: true
 
       - name: Checkout registry
         uses: ./.github/actions/checkout-registry
@@ -471,6 +481,7 @@ jobs:
             **/node_modules
             .yarn
           key: ${{ runner.os }}-yarn-cache-${{ hashFiles('./yarn.lock') }}
+          fail-on-cache-miss: true
 
       - name: build-cache
         uses: actions/cache@v4
@@ -479,6 +490,7 @@ jobs:
             ./*
             !./rust
           key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+          fail-on-cache-miss: true
 
       - name: foundry-install
         uses: foundry-rs/foundry-toolchain@v1
