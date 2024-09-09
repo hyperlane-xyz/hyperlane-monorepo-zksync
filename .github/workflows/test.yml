@@ -82,8 +82,6 @@ jobs:
             ./*
             !./rust
           key: ${{ github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
-          restore-keys: |
-            ${{ github.ref_name }}-
 
       - name: build
         run: yarn build
