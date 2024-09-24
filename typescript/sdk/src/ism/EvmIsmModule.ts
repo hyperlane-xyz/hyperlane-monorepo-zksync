@@ -555,7 +555,6 @@ export class EvmIsmModule extends HyperlaneModule<
       submoduleAddresses,
       {
         ...overrides,
-        gasLimit: 150_000_000,
       },
     );
 
