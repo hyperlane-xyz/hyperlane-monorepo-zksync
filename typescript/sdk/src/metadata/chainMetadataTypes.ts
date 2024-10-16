@@ -14,6 +14,7 @@ export enum ExplorerFamily {
   Etherscan = 'etherscan',
   Blockscout = 'blockscout',
   Routescan = 'routescan',
+  zksync = 'zksync',
   Other = 'other',
 }
 
@@ -263,9 +264,11 @@ const ChainMetadataSchemaExtensible = ChainMetadataSchemaObject.passthrough();
 export const ChainMetadataSchema = ChainMetadataSchemaExtensible.refine(
   (metadata) => {
     if (
-      [ProtocolType.Ethereum, ProtocolType.Sealevel].includes(
-        metadata.protocol,
-      ) &&
+      [
+        ProtocolType.Ethereum,
+        ProtocolType.Sealevel,
+        ProtocolType.ZKSync,
+      ].includes(metadata.protocol) &&
       typeof metadata.chainId !== 'number'
     )
       return false;

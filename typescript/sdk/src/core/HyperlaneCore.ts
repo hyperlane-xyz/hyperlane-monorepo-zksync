@@ -146,6 +146,7 @@ export class HyperlaneCore extends HyperlaneApp<CoreFactories> {
     const mailbox = this.getContracts(origin).mailbox;
     const destinationDomain = this.multiProvider.getDomainId(destination);
     const recipientBytes32 = addressToBytes32(recipient);
+
     const quote = await this.quoteGasPayment(
       origin,
       destination,
@@ -241,6 +242,13 @@ export class HyperlaneCore extends HyperlaneApp<CoreFactories> {
   }
 
   async estimateHandle(message: DispatchedMessage): Promise<string> {
+    // This estimation is not possible on zksync as it is overriding transaction.from
+    // transaction.from must be a signer on zksync
+    if (
+      this.multiProvider.getProtocol(this.getDestination(message)) ===
+      ProtocolType.ZKSync
+    )
+      return '0';
     return (
       await this.getRecipient(message).estimateGas.handle(
         message.parsed.origin,
