@@ -21,10 +21,16 @@ import type {
   Transaction as VTransaction,
   TransactionReceipt as VTransactionReceipt,
 } from 'viem';
+import {
+  Contract as ZKSyncBaseContract,
+  Provider as ZKSyncBaseProvider,
+  types as zkSyncTypes,
+} from 'zksync-ethers';
 
 import { ProtocolType } from '@hyperlane-xyz/utils';
 
 export enum ProviderType {
+  ZKSync = 'zksync',
   EthersV5 = 'ethers-v5',
   Viem = 'viem',
   SolanaWeb3 = 'solana-web3',
@@ -37,6 +43,7 @@ export const PROTOCOL_TO_DEFAULT_PROVIDER_TYPE: Record<
   ProtocolType,
   ProviderType
 > = {
+  [ProtocolType.ZKSync]: ProviderType.ZKSync,
   [ProtocolType.Ethereum]: ProviderType.EthersV5,
   [ProtocolType.Sealevel]: ProviderType.SolanaWeb3,
   [ProtocolType.Cosmos]: ProviderType.CosmJsWasm,
@@ -62,6 +69,12 @@ type ProtocolTypesMapping = {
     provider: CosmJsWasmProvider;
     contract: CosmJsWasmContract;
     receipt: CosmJsWasmTransactionReceipt;
+  };
+  [ProtocolType.ZKSync]: {
+    transaction: ZKSyncTransaction;
+    provider: ZKSyncProvider;
+    contract: ZKSyncContract;
+    receipt: ZKSyncTransactionReceipt;
   };
 };
 
@@ -94,6 +107,11 @@ export type ProtocolTypedReceipt<T extends ProtocolType> = ProtocolTyped<
 interface TypedProviderBase<T> {
   type: ProviderType;
   provider: T;
+}
+
+export interface ZKSyncProvider extends TypedProviderBase<ZKSyncBaseProvider> {
+  type: ProviderType.ZKSync;
+  provider: ZKSyncBaseProvider;
 }
 
 export interface EthersV5Provider
@@ -130,7 +148,8 @@ export type TypedProvider =
   | ViemProvider
   | SolanaWeb3Provider
   | CosmJsProvider
-  | CosmJsWasmProvider;
+  | CosmJsWasmProvider
+  | ZKSyncProvider;
 
 /**
  * Contracts with discriminated union of provider type
@@ -141,6 +160,10 @@ interface TypedContractBase<T> {
   contract: T;
 }
 
+export interface ZKSyncContract extends TypedContractBase<ZKSyncBaseContract> {
+  type: ProviderType.ZKSync;
+  contract: ZKSyncBaseContract;
+}
 export interface EthersV5Contract extends TypedContractBase<EV5Contract> {
   type: ProviderType.EthersV5;
   contract: EV5Contract;
@@ -175,7 +198,8 @@ export type TypedContract =
   | ViemContract
   | SolanaWeb3Contract
   | CosmJsContract
-  | CosmJsWasmContract;
+  | CosmJsWasmContract
+  | ZKSyncBaseContract;
 
 /**
  * Transactions with discriminated union of provider type
@@ -190,6 +214,11 @@ export interface EthersV5Transaction
   extends TypedTransactionBase<EV5Transaction> {
   type: ProviderType.EthersV5;
   transaction: EV5Transaction;
+}
+export interface ZKSyncTransaction
+  extends TypedTransactionBase<zkSyncTypes.TransactionRequest> {
+  type: ProviderType.ZKSync;
+  transaction: zkSyncTypes.TransactionRequest;
 }
 
 export interface AnnotatedEV5Transaction extends EV5Transaction {
@@ -235,6 +264,11 @@ interface TypedTransactionReceiptBase<T> {
   receipt: T;
 }
 
+export interface ZKSyncTransactionReceipt
+  extends TypedTransactionReceiptBase<zkSyncTypes.TransactionReceipt> {
+  type: ProviderType.ZKSync;
+  receipt: zkSyncTypes.TransactionReceipt;
+}
 export interface EthersV5TransactionReceipt
   extends TypedTransactionReceiptBase<EV5Providers.TransactionReceipt> {
   type: ProviderType.EthersV5;
@@ -270,4 +304,5 @@ export type TypedTransactionReceipt =
   | ViemTransactionReceipt
   | SolanaWeb3TransactionReceipt
   | CosmJsTransactionReceipt
-  | CosmJsWasmTransactionReceipt;
+  | CosmJsWasmTransactionReceipt
+  | ZKSyncTransactionReceipt;
