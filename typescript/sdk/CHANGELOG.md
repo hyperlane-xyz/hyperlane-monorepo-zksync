@@ -1,5 +1,26 @@
 # @hyperlane-xyz/sdk
 
+## 5.6.0
+
+### Minor Changes
+
+- 46044a2e9: Deploy to odysseytestnet
+- 02a5b92ba: Enroll new validators. Add tx overrides when deploying ICA accounts. Core checker now surfaces owner violations for defaultHook and requiredHook. App checker temporarily ignores bytecode mismatch violations.
+- 8001bbbd6: Add override to some transactions to fix warp apply
+- 32d0a67c2: Adds the warp check command to compare warp routes config files with on chain warp route deployments
+- b1ff48bd1: Add rebasing yield route support into CLI/SDK
+- 7d7bcc1a3: Add deployments for mainnets: flow, metall2, polynomial
+
+### Patch Changes
+
+- 2317eca3c: Set transaction overrides and add 10% gas limit buffer when sending message through HyperlaneCore.
+- Updated dependencies [f1712deb7]
+- Updated dependencies [c9085afd9]
+- Updated dependencies [ec6b874b1]
+- Updated dependencies [72c23c0d6]
+  - @hyperlane-xyz/utils@5.6.0
+  - @hyperlane-xyz/core@5.5.0
+
 ## 5.5.0
 
 ### Minor Changes
